@@ -258,17 +258,15 @@ export function PixelArtConverter() {
 
       {/* Article Content */}
       <Separator className="my-12" />
-      <section className="mb-12">
-        <ScrollArea className="h-[400px] pr-4">
-          <div className="space-y-8">
-            {content.article.sections.map((section, index) => (
-              <div key={index} className="space-y-4">
-                <h2 className="text-2xl font-semibold">{section.heading}</h2>
-                <p className="text-muted-foreground leading-relaxed">{section.body}</p>
-              </div>
-            ))}
-          </div>
-        </ScrollArea>
+      <section className="mb-12 max-w-4xl mx-auto">
+        <div className="space-y-12">
+          {content.article.sections.map((section, index) => (
+            <article key={index} className="space-y-4">
+              <h2 className="text-2xl font-semibold">{section.heading}</h2>
+              <p className="text-muted-foreground leading-relaxed text-lg">{section.body}</p>
+            </article>
+          ))}
+        </div>
       </section>
 
       {/* FAQ Section */}
