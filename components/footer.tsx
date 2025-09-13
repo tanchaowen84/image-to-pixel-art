@@ -1,7 +1,6 @@
 import React from "react"
 import Link from "next/link"
 import { Separator } from "@/components/ui/separator"
-import { Sparkles, Github, Twitter } from "lucide-react"
 
 export function Footer() {
   return (
@@ -10,22 +9,13 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo and Description */}
           <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <Sparkles className="h-6 w-6 text-primary" />
-              <span className="font-bold text-xl">PixelArt Converter</span>
+            <div className="mb-4">
+              <span className="font-bold text-xl">image to pixel art</span>
             </div>
             <p className="text-muted-foreground mb-4 max-w-md">
               Transform any image into retro 8-bit pixel art with real-time preview. 
               Fast, private, and 100% browser-based.
             </p>
-            <div className="flex gap-4">
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Github className="h-5 w-5" />
-              </Link>
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Twitter className="h-5 w-5" />
-              </Link>
-            </div>
           </div>
           
           {/* Quick Links */}

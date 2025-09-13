@@ -155,12 +155,9 @@ export function PixelArtConverter() {
     <div className="container mx-auto px-4 py-6 max-w-6xl">
       {/* Header */}
       <div className="text-center mb-6">
-        <div className="flex items-center justify-center gap-2 mb-3">
-          <Sparkles className="h-6 w-6 text-primary" />
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            {content.hero.h1}
-          </h1>
-        </div>
+        <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-3">
+          {content.hero.h1}
+        </h1>
         <p className="text-base text-muted-foreground max-w-2xl mx-auto">
           {content.hero.subheading}
         </p>
