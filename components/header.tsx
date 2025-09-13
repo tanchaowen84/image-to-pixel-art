@@ -3,14 +3,16 @@
 import React from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Github } from "lucide-react"
+import { Github as GithubIcon } from "lucide-react"
+import Image from "next/image"
 
 export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <Link href="/" className="font-bold text-xl">
-          image to pixel art
+        <Link href="/" className="flex items-center gap-2">
+          <Image src="/favicon.ico" alt="favicon" width={24} height={24} />
+          <span className="font-bold text-xl">image to pixel art</span>
         </Link>
         
         <nav className="hidden md:flex items-center gap-6">
@@ -32,7 +34,7 @@ export function Header() {
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-primary transition-colors"
           >
-            <Github className="h-5 w-5" />
+            <GithubIcon className="h-5 w-5" />
           </Link>
           <Button size="sm" onClick={() => {
             const converterElement = document.querySelector('.grid.lg\\:grid-cols-2');

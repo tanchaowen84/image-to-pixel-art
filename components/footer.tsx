@@ -1,6 +1,7 @@
 import React from "react"
 import Link from "next/link"
 import { Separator } from "@/components/ui/separator"
+import Image from "next/image"
 
 export function Footer() {
   return (
@@ -9,7 +10,8 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo and Description */}
           <div className="col-span-1 md:col-span-2">
-            <div className="mb-4">
+            <div className="flex items-center gap-2 mb-4">
+              <Image src="/favicon.ico" alt="favicon" width={32} height={32} />
               <span className="font-bold text-xl">image to pixel art</span>
             </div>
             <p className="text-muted-foreground mb-4 max-w-md">
