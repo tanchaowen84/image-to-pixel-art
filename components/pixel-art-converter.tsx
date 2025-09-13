@@ -152,21 +152,21 @@ export function PixelArtConverter() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-7xl">
+    <div className="container mx-auto px-4 py-6 max-w-6xl">
       {/* Header */}
-      <div className="text-center mb-8">
-        <div className="flex items-center justify-center gap-2 mb-4">
-          <Sparkles className="h-8 w-8 text-primary" />
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+      <div className="text-center mb-6">
+        <div className="flex items-center justify-center gap-2 mb-3">
+          <Sparkles className="h-6 w-6 text-primary" />
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             {content.hero.h1}
           </h1>
         </div>
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+        <p className="text-base text-muted-foreground max-w-2xl mx-auto">
           {content.hero.subheading}
         </p>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-8 h-[600px]">
+      <div className="grid lg:grid-cols-2 gap-6 h-[500px]">
         {/* Left Panel - Upload Area */}
         <Card className="flex flex-col">
           <CardHeader>
@@ -281,8 +281,8 @@ export function PixelArtConverter() {
       <canvas ref={canvasRef} className="hidden" />
 
       {/* Article Content */}
-      <Separator className="my-12" />
-      <section className="mb-12 max-w-4xl mx-auto">
+      <Separator className="my-8" />
+      <section id="how-to-use" className="mb-8 max-w-5xl mx-auto">
         <div className="space-y-12">
           {content.article.sections.map((section, index) => {
             // Special handling for "How to Use" section
@@ -498,7 +498,7 @@ export function PixelArtConverter() {
             // Special handling for "Privacy" section
             if (section.heading === "Privacy, Speed, and Reliability") {
               return (
-                <article key={index} className="space-y-6">
+                <article key={index} className="space-y-6" id="features">
                   <h2 className="text-2xl font-semibold flex items-center gap-2">
                     <Shield className="h-6 w-6 text-primary" />
                     {section.heading}
@@ -539,8 +539,8 @@ export function PixelArtConverter() {
       </section>
 
       {/* FAQ Section */}
-      <Separator className="my-12" />
-      <section className="mb-12">
+      <Separator className="my-8" />
+      <section id="faq" className="mb-8">
         <h2 className="text-3xl font-bold text-center mb-8">Frequently Asked Questions</h2>
         <Accordion type="single" collapsible className="w-full max-w-4xl mx-auto">
           {content.faq.map((item, index) => (
@@ -553,8 +553,8 @@ export function PixelArtConverter() {
       </section>
 
       {/* CTA Section */}
-      <Separator className="my-12" />
-      <section className="text-center py-12 px-4 rounded-lg bg-muted/50">
+      <Separator className="my-8" />
+      <section className="text-center py-10 px-4 rounded-lg bg-muted/50">
         <h2 className="text-3xl font-bold mb-4">{content.cta.heading}</h2>
         <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
           {content.cta.body}
