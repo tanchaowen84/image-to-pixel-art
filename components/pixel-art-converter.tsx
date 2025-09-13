@@ -10,7 +10,12 @@ import { Label } from "@/components/ui/label"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Separator } from "@/components/ui/separator"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Upload, Download, Sparkles } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { 
+  Upload, Download, Sparkles, ChevronRight, Eye, Palette, Monitor, 
+  Shield, Zap, Users, Lightbulb, Gamepad2, Image, FileImage,
+  CheckCircle, ArrowRight, Circle, Square, Triangle, Brush, X, Check
+} from "lucide-react"
 import content from "@/content/homepage.en.json"
 
 interface PixelArtSettings {
@@ -27,6 +32,25 @@ export function PixelArtConverter() {
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // Steps data for "How to Use" section
+  const howToSteps = [
+    {
+      icon: Upload,
+      title: "Upload an image or start with the sample",
+      description: "The image to pixel art preview appears immediately"
+    },
+    {
+      icon: Slider,
+      title: "Drag the slider to set pixel size",
+      description: "Larger pixels push the image to pixel art look toward bold, retro blocks"
+    },
+    {
+      icon: Download,
+      title: "Download your favorite version",
+      description: "Choose the quick small download, or pick the original-size option"
+    }
+  ]
 
   const pixelateImage = useCallback((img: HTMLImageElement, settings: PixelArtSettings) => {
     const canvas = canvasRef.current
@@ -260,12 +284,257 @@ export function PixelArtConverter() {
       <Separator className="my-12" />
       <section className="mb-12 max-w-4xl mx-auto">
         <div className="space-y-12">
-          {content.article.sections.map((section, index) => (
-            <article key={index} className="space-y-4">
-              <h2 className="text-2xl font-semibold">{section.heading}</h2>
-              <p className="text-muted-foreground leading-relaxed text-lg">{section.body}</p>
-            </article>
-          ))}
+          {content.article.sections.map((section, index) => {
+            // Special handling for "How to Use" section
+            if (section.heading === "How to Use the Image to Pixel Art Converter") {
+              return (
+                <article key={index} className="space-y-8">
+                  <h2 className="text-2xl font-semibold">{section.heading}</h2>
+                  <p className="text-muted-foreground leading-relaxed text-lg">{section.body}</p>
+                  
+                  {/* Flow Steps */}
+                  <div className="grid md:grid-cols-3 gap-6 mt-8">
+                    {howToSteps.map((step, stepIndex) => (
+                      <div key={stepIndex} className="relative">
+                        <Card className="h-full">
+                          <CardHeader>
+                            <div className="flex items-center justify-between mb-2">
+                              <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10">
+                                <step.icon className="h-6 w-6 text-primary" />
+                              </div>
+                              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold">
+                                {stepIndex + 1}
+                              </div>
+                            </div>
+                            <CardTitle className="text-lg">{step.title}</CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                            <p className="text-muted-foreground text-sm">{step.description}</p>
+                          </CardContent>
+                        </Card>
+                        
+                        {/* Arrow connector */}
+                        {stepIndex < howToSteps.length - 1 && (
+                          <div className="hidden md:flex items-center justify-center absolute -right-3 top-1/2 transform -translate-y-1/2 z-10">
+                            <ChevronRight className="h-8 w-8 text-muted-foreground" />
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </article>
+              )
+            }
+            
+            // Special handling for "Tips" section
+            if (section.heading === "Tips to Get Better Image to Pixel Art Results") {
+              return (
+                <article key={index} className="space-y-6">
+                  <h2 className="text-2xl font-semibold flex items-center gap-2">
+                    <Lightbulb className="h-6 w-6 text-primary" />
+                    {section.heading}
+                  </h2>
+                  <p className="text-muted-foreground leading-relaxed text-lg">{section.body}</p>
+                  
+                  {/* Tips grid */}
+                  <div className="grid md:grid-cols-2 gap-4 mt-6">
+                    <Card className="p-4 border-l-4 border-l-primary">
+                      <div className="flex items-start gap-3">
+                        <Eye className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
+                        <div>
+                          <h3 className="font-semibold mb-1">Start large, then refine</h3>
+                          <p className="text-sm text-muted-foreground">Push pixels bigger to establish bold shapes, then lower the slider until the balance feels right</p>
+                        </div>
+                      </div>
+                    </Card>
+                    
+                    <Card className="p-4 border-l-4 border-l-primary">
+                      <div className="flex items-start gap-3">
+                        <Palette className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
+                        <div>
+                          <h3 className="font-semibold mb-1">Favor contrast</h3>
+                          <p className="text-sm text-muted-foreground">High-contrast photos with clear subjects translate to cleaner pixel art blocks</p>
+                        </div>
+                      </div>
+                    </Card>
+                    
+                    <Card className="p-4 border-l-4 border-l-primary">
+                      <div className="flex items-start gap-3">
+                        <Square className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
+                        <div>
+                          <h3 className="font-semibold mb-1">Simplify composition</h3>
+                          <p className="text-sm text-muted-foreground">Centered subjects and minimal backgrounds let pixel art read clearly at a glance</p>
+                        </div>
+                      </div>
+                    </Card>
+                    
+                    <Card className="p-4 border-l-4 border-l-primary">
+                      <div className="flex items-start gap-3">
+                        <Download className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
+                        <div>
+                          <h3 className="font-semibold mb-1">Export both sizes</h3>
+                          <p className="text-sm text-muted-foreground">Use small download for profiles, and original-size for banners or print</p>
+                        </div>
+                      </div>
+                    </Card>
+                  </div>
+                </article>
+              )
+            }
+            
+            // Special handling for "Who Benefits" section
+            if (section.heading === "Who Benefits from Image to Pixel Art") {
+              return (
+                <article key={index} className="space-y-6">
+                  <h2 className="text-2xl font-semibold flex items-center gap-2">
+                    <Users className="h-6 w-6 text-primary" />
+                    {section.heading}
+                  </h2>
+                  <p className="text-muted-foreground leading-relaxed text-lg">{section.body}</p>
+                  
+                  {/* User types grid */}
+                  <div className="grid md:grid-cols-2 gap-4 mt-6">
+                    {[
+                      { icon: Gamepad2, title: "Indie developers", desc: "Turn sketches into UI icons and sprites" },
+                      { icon: Image, title: "Social creators", desc: "Make eye-catching avatars and thumbnails" },
+                      { icon: Monitor, title: "Teachers", desc: "Demonstrate sampling and resolution visually" },
+                      { icon: Brush, title: "Makers and crafters", desc: "Create patterns for cross-stitch and perler beads" }
+                    ].map((user, userIndex) => (
+                      <Card key={userIndex} className="p-4 hover:shadow-md transition-shadow">
+                        <div className="flex items-center gap-3">
+                          <user.icon className="h-5 w-5 text-primary" />
+                          <div>
+                            <h3 className="font-semibold">{user.title}</h3>
+                            <p className="text-sm text-muted-foreground">{user.desc}</p>
+                          </div>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </article>
+              )
+            }
+            
+            // Special handling for "Pixel Art vs. Pixelation" section
+            if (section.heading === "Pixel Art vs. Pixelation: The Key Difference") {
+              return (
+                <article key={index} className="space-y-6">
+                  <h2 className="text-2xl font-semibold flex items-center gap-2">
+                    <Triangle className="h-6 w-6 text-primary" />
+                    {section.heading}
+                  </h2>
+                  <p className="text-muted-foreground leading-relaxed text-lg">{section.body}</p>
+                  
+                  {/* Comparison table */}
+                  <div className="grid md:grid-cols-2 gap-6 mt-8">
+                    <Card className="border-2 border-green-500/20">
+                      <CardHeader className="bg-green-500/10">
+                        <div className="flex items-center justify-between">
+                          <CardTitle className="text-lg flex items-center gap-2">
+                            <Check className="h-5 w-5 text-green-600" />
+                            Image to Pixel Art
+                            <Badge variant="secondary" className="bg-green-100 text-green-800">Aesthetic</Badge>
+                          </CardTitle>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="pt-4">
+                        <ul className="space-y-3">
+                          <li className="flex items-start gap-2">
+                            <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                            <span className="text-sm">Intentional style choice for retro look</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                            <span className="text-sm">Preserves readability and shapes</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                            <span className="text-sm">Uses crisp edges and clear blocks</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                            <span className="text-sm">Perfect for games, icons, posters</span>
+                          </li>
+                        </ul>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card className="border-2 border-red-500/20">
+                      <CardHeader className="bg-red-500/10">
+                        <div className="flex items-center justify-between">
+                          <CardTitle className="text-lg flex items-center gap-2">
+                            <X className="h-5 w-5 text-red-600" />
+                            Privacy Pixelation
+                            <Badge variant="secondary" className="bg-red-100 text-red-800">Censorship</Badge>
+                          </CardTitle>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="pt-4">
+                        <ul className="space-y-3">
+                          <li className="flex items-start gap-2">
+                            <X className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
+                            <span className="text-sm">Used to hide information</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <X className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
+                            <span className="text-sm">Goal is to obscure, not style</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <X className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
+                            <span className="text-sm">Creates unclear, blurred blocks</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <X className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
+                            <span className="text-sm">Used for faces, data protection</span>
+                          </li>
+                        </ul>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </article>
+              )
+            }
+            
+            // Special handling for "Privacy" section
+            if (section.heading === "Privacy, Speed, and Reliability") {
+              return (
+                <article key={index} className="space-y-6">
+                  <h2 className="text-2xl font-semibold flex items-center gap-2">
+                    <Shield className="h-6 w-6 text-primary" />
+                    {section.heading}
+                  </h2>
+                  <p className="text-muted-foreground leading-relaxed text-lg">{section.body}</p>
+                  
+                  {/* Feature highlights */}
+                  <div className="grid md:grid-cols-3 gap-4 mt-6">
+                    <Card className="text-center p-6">
+                      <Shield className="h-8 w-8 text-primary mx-auto mb-3" />
+                      <h3 className="font-semibold mb-2">100% Private</h3>
+                      <p className="text-sm text-muted-foreground">All processing happens in your browser</p>
+                    </Card>
+                    <Card className="text-center p-6">
+                      <Zap className="h-8 w-8 text-primary mx-auto mb-3" />
+                      <h3 className="font-semibold mb-2">Instant Results</h3>
+                      <p className="text-sm text-muted-foreground">No waiting for server processing</p>
+                    </Card>
+                    <Card className="text-center p-6">
+                      <CheckCircle className="h-8 w-8 text-primary mx-auto mb-3" />
+                      <h3 className="font-semibold mb-2">Reliable</h3>
+                      <p className="text-sm text-muted-foreground">Works offline, no paywalls</p>
+                    </Card>
+                  </div>
+                </article>
+              )
+            }
+            
+            // Default rendering for other sections
+            return (
+              <article key={index} className="space-y-4">
+                <h2 className="text-2xl font-semibold">{section.heading}</h2>
+                <p className="text-muted-foreground leading-relaxed text-lg">{section.body}</p>
+              </article>
+            )
+          })}
         </div>
       </section>
 
