@@ -61,7 +61,12 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/terms" className="text-muted-foreground hover:text-primary transition-colors">
-                  Terms of Service
+                  Terms of Use
+                </Link>
+              </li>
+              <li>
+                <Link href="/cookies" className="text-muted-foreground hover:text-primary transition-colors">
+                  Cookie Policy
                 </Link>
               </li>
             </ul>
@@ -71,7 +76,7 @@ export function Footer() {
         <Separator className="my-8" />
         
         <div className="flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">
-          <p>© 2024 PixelArt Converter. All rights reserved.</p>
+          <p>© 2025 PixelArt Converter. All rights reserved.</p>
           <p>Made with ❤️ for pixel art enthusiasts</p>
         </div>
       </div>

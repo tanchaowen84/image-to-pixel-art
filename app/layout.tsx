@@ -5,7 +5,6 @@ import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
-import { ThemeProvider } from "@/components/theme-provider"
 import content from "@/content/homepage.en.json"
 import "./globals.css"
 
@@ -33,20 +32,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`font-pixel ${silkscreen.variable} ${vt323.variable}`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Header />
-          <main className="min-h-screen">
-            <Suspense fallback={null}>{children}</Suspense>
-          </main>
-          <Footer />
-        </ThemeProvider>
+    <html lang="en">
+      <body className={`font-pixel ${silkscreen.variable} ${vt323.variable} bg-background text-foreground`}>
+        <Header />
+        <main className="min-h-screen">
+          <Suspense fallback={null}>{children}</Suspense>
+        </main>
+        <Footer />
         <Analytics />
       </body>
     </html>
