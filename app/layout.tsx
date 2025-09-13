@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Silkscreen, VT323 } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
+import content from "@/content/homepage.en.json"
 import "./globals.css"
 
 const silkscreen = Silkscreen({
@@ -18,8 +19,8 @@ const vt323 = VT323({
 })
 
 export const metadata: Metadata = {
-  title: "PixelArt Converter - Transform Images to Pixel Art",
-  description: "Convert any image to retro 8-bit pixel art with real-time preview and customizable settings",
+  title: content.meta.title,
+  description: content.meta.description,
   generator: "v0.app",
 }
 

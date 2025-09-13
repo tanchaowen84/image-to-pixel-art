@@ -7,7 +7,11 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Slider } from "@/components/ui/slider"
 import { Label } from "@/components/ui/label"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Separator } from "@/components/ui/separator"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import { Upload, Download, Sparkles } from "lucide-react"
+import content from "@/content/homepage.en.json"
 
 interface PixelArtSettings {
   pixelSize: number
@@ -130,11 +134,11 @@ export function PixelArtConverter() {
         <div className="flex items-center justify-center gap-2 mb-4">
           <Sparkles className="h-8 w-8 text-primary" />
           <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            PixelArt Converter
+            {content.hero.h1}
           </h1>
         </div>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Transform any image into retro 8-bit pixel art with real-time preview
+          {content.hero.subheading}
         </p>
       </div>
 
@@ -251,6 +255,54 @@ export function PixelArtConverter() {
 
       {/* Hidden canvas for processing */}
       <canvas ref={canvasRef} className="hidden" />
+
+      {/* Article Content */}
+      <Separator className="my-12" />
+      <section className="mb-12">
+        <ScrollArea className="h-[400px] pr-4">
+          <div className="space-y-8">
+            {content.article.sections.map((section, index) => (
+              <div key={index} className="space-y-4">
+                <h2 className="text-2xl font-semibold">{section.heading}</h2>
+                <p className="text-muted-foreground leading-relaxed">{section.body}</p>
+              </div>
+            ))}
+          </div>
+        </ScrollArea>
+      </section>
+
+      {/* FAQ Section */}
+      <Separator className="my-12" />
+      <section className="mb-12">
+        <h2 className="text-3xl font-bold text-center mb-8">Frequently Asked Questions</h2>
+        <Accordion type="single" collapsible className="w-full max-w-4xl mx-auto">
+          {content.faq.map((item, index) => (
+            <AccordionItem key={index} value={`item-${index}`}>
+              <AccordionTrigger>{item.q}</AccordionTrigger>
+              <AccordionContent>{item.a}</AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </section>
+
+      {/* CTA Section */}
+      <Separator className="my-12" />
+      <section className="text-center py-12 px-4 rounded-lg bg-muted/50">
+        <h2 className="text-3xl font-bold mb-4">{content.cta.heading}</h2>
+        <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+          {content.cta.body}
+        </p>
+        <Button 
+          size="lg" 
+          onClick={() => {
+            // Scroll to converter
+            const converterElement = document.querySelector('.grid.lg\\:grid-cols-2');
+            converterElement?.scrollIntoView({ behavior: 'smooth' });
+          }}
+        >
+          {content.cta.buttonText}
+        </Button>
+      </section>
     </div>
   )
 }

@@ -11,7 +11,8 @@
       "WebFetch(domain:www.gamedev.net)",
       "WebFetch(domain:lospec.com)",
       "WebFetch(domain:www.behance.net)",
-      "WebFetch(domain:www.etsy.com)"
+      "WebFetch(domain:www.etsy.com)",
+      "Bash(pnpm dlx shadcn@latest add:*)"
     ],
     "deny": []
   }
