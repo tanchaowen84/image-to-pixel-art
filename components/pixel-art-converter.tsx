@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useState, useRef, useCallback, useEffect } from "react"
 import { Button } from "@/components/ui/button"
+import { Slider } from "@/components/ui/slider"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
@@ -34,6 +35,7 @@ export function PixelArtConverter() {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const smallCanvasRef = useRef<HTMLCanvasElement | null>(null)
   const largeCanvasRef = useRef<HTMLCanvasElement | null>(null)
+  const sizeDebounceRef = useRef<number | null>(null)
 
   // Steps data for "How to Use" section
   const howToSteps = [
@@ -54,8 +56,8 @@ export function PixelArtConverter() {
     }
   ]
 
-  const pixelateImage = useCallback(async (img: HTMLImageElement) => {
-    const result = await renderPixelArt(img)
+  const pixelateImage = useCallback(async (img: HTMLImageElement, pixelSizeOverride?: number) => {
+    const result = await renderPixelArt(img, pixelSizeOverride ? { pixelSize: pixelSizeOverride } : undefined)
     // store canvases for downloads
     smallCanvasRef.current = result.small
     largeCanvasRef.current = result.large
@@ -178,10 +180,33 @@ export function PixelArtConverter() {
               </Button>
             )}
 
-            {/* Zero-config: show auto pixel size info only */}
-            <div className="space-y-1 text-sm text-muted-foreground">
-              <Label className="text-xs">Auto pixel size</Label>
-              <div>Calculated: {settings.pixelSize}px</div>
+            {/* Pixel Size Control */}
+            <div className="mt-2">
+              <div className="flex items-center justify-between mb-1">
+                <Label>Pixel Size: {settings.pixelSize}px</Label>
+                <span className="text-xs text-muted-foreground">drag to adjust</span>
+              </div>
+              <Slider
+                value={[settings.pixelSize]}
+                min={2}
+                max={32}
+                step={1}
+                onValueChange={([value]) => {
+                  setSettings({ pixelSize: value })
+                  if (!originalImage) return
+                  // debounce re-render to avoid thrash while dragging
+                  if (sizeDebounceRef.current) {
+                    window.clearTimeout(sizeDebounceRef.current)
+                  }
+                  setIsProcessing(true)
+                  sizeDebounceRef.current = window.setTimeout(async () => {
+                    const url = await pixelateImage(originalImage, value)
+                    setPixelatedImage(url)
+                    setIsProcessing(false)
+                  }, 120) as unknown as number
+                }}
+                className="w-full"
+              />
             </div>
           </CardContent>
         </Card>

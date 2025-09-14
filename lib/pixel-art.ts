@@ -12,6 +12,8 @@ export interface RenderOptions {
   targetCells?: number
   /** Number of colors for quantization. */
   colors?: number
+  /** Explicit pixel size override; if provided, skips auto size. */
+  pixelSize?: number
 }
 
 /** Compute an automatic pixel size based on image short side and target cell count. */
@@ -111,7 +113,7 @@ export async function renderPixelArt(
   img: HTMLImageElement,
   opts: RenderOptions = {},
 ): Promise<PixelArtResult> {
-  const pixelSize = autoPixelSize(img, opts.targetCells ?? 96)
+  const pixelSize = Math.max(2, Math.floor(opts.pixelSize ?? autoPixelSize(img, opts.targetCells ?? 96)))
 
   // 1) Downsample to small grid
   const { canvas: small, ctx: sctx, w, h } = downsampleToGrid(img, pixelSize)
@@ -142,4 +144,3 @@ export function downloadCanvas(canvas: HTMLCanvasElement, filename: string) {
     URL.revokeObjectURL(url)
   }, 'image/png')
 }
-
