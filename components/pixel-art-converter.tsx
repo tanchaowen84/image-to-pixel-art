@@ -37,6 +37,16 @@ export function PixelArtConverter() {
   const largeCanvasRef = useRef<HTMLCanvasElement | null>(null)
   const sizeDebounceRef = useRef<number | null>(null)
 
+  // Load default example image on mount so users see a result immediately
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    if (originalImage) return
+    const img = new window.Image()
+    img.onload = () => setOriginalImage(img)
+    img.src = "/display.webp"
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   // Steps data for "How to Use" section
   const howToSteps = [
     {
@@ -145,11 +155,14 @@ export function PixelArtConverter() {
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Left Panel - Upload Area */}
         <Card className="flex flex-col">
-          <CardHeader>
+          <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="flex items-center gap-2">
               <Upload className="h-5 w-5" />
               Upload
             </CardTitle>
+            <Button size="sm" variant="outline" onClick={() => fileInputRef.current?.click()}>
+              <Upload className="h-4 w-4 mr-2" /> Upload
+            </Button>
           </CardHeader>
           <CardContent className="flex-1 flex flex-col space-y-6">
             <div className="flex-1 min-h-[300px] max-h-[70vh]">
