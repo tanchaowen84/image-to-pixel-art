@@ -86,6 +86,17 @@ export function PixelArtConverter() {
     const file = event.target.files?.[0]
     if (!file) return
 
+    // Guards: type and size (<=10MB)
+    if (!file.type.startsWith("image/")) {
+      alert("Unsupported file type. Please upload an image (PNG, JPG, WEBP).")
+      return
+    }
+    const TEN_MB = 10 * 1024 * 1024
+    if (file.size > TEN_MB) {
+      alert("File too large. Please choose an image under 10MB.")
+      return
+    }
+
     const reader = new FileReader()
     reader.onload = (e) => {
       const img = new Image()
