@@ -8,6 +8,21 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/terms',
   },
+  openGraph: {
+    type: 'article',
+    title: "Terms of Use - Image to Pixel Art Converter",
+    description: "Read our terms of use to understand the terms and conditions for using our free image to pixel art converter tool.",
+    url: '/terms',
+    images: [
+      {
+        url: '/og.png',
+        width: 1200,
+        height: 630,
+        alt: 'Image to Pixel Art Converter - Transform photos into retro pixel art',
+        type: 'image/png',
+      },
+    ],
+  },
 }
 
 export default function TermsOfUse() {

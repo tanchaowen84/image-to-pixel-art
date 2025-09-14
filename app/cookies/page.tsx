@@ -8,6 +8,21 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/cookies',
   },
+  openGraph: {
+    type: 'article',
+    title: "Cookie Policy - Image to Pixel Art Converter",
+    description: "Learn about the cookies we use on our image to pixel art converter website and how you can manage your preferences.",
+    url: '/cookies',
+    images: [
+      {
+        url: '/og.png',
+        width: 1200,
+        height: 630,
+        alt: 'Image to Pixel Art Converter - Transform photos into retro pixel art',
+        type: 'image/png',
+      },
+    ],
+  },
 }
 
 export default function CookiePolicy() {

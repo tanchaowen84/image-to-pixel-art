@@ -28,6 +28,34 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
+  openGraph: {
+    type: 'website',
+    siteName: 'Image to Pixel Art Converter',
+    title: content.meta.title,
+    description: content.meta.description,
+    locale: 'en_US',
+    url: '/',
+    images: [
+      {
+        url: '/og.png',
+        width: 1200,
+        height: 630,
+        alt: 'Image to Pixel Art Converter - Transform photos into retro pixel art',
+        type: 'image/png',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: content.meta.title,
+    description: content.meta.description,
+    images: ['/og.png'],
+    creator: '@pixelartconverter',
+    site: '@pixelartconverter',
+  },
+  other: {
+    'twitter:image:alt': 'Image to Pixel Art Converter - Transform photos into retro pixel art',
+  },
 }
 
 export default function RootLayout({

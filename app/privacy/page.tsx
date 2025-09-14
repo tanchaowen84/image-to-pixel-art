@@ -8,6 +8,21 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/privacy',
   },
+  openGraph: {
+    type: 'article',
+    title: "Privacy Policy - Image to Pixel Art Converter",
+    description: "Read our privacy policy to understand how we protect your data. All image processing happens locally in your browser.",
+    url: '/privacy',
+    images: [
+      {
+        url: '/og.png',
+        width: 1200,
+        height: 630,
+        alt: 'Image to Pixel Art Converter - Transform photos into retro pixel art',
+        type: 'image/png',
+      },
+    ],
+  },
 }
 
 export default function PrivacyPolicy() {
