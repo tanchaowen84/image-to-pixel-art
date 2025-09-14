@@ -5,7 +5,6 @@ import type React from "react"
 import { useState, useRef, useCallback, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Slider } from "@/components/ui/slider"
 import { Label } from "@/components/ui/label"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Separator } from "@/components/ui/separator"
@@ -17,6 +16,7 @@ import {
   CheckCircle, ArrowRight, Circle, Square, Triangle, Brush, X, Check
 } from "lucide-react"
 import content from "@/content/homepage.en.json"
+import { renderPixelArt } from "@/lib/pixel-art"
 
 interface PixelArtSettings {
   pixelSize: number
@@ -32,6 +32,8 @@ export function PixelArtConverter() {
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const smallCanvasRef = useRef<HTMLCanvasElement | null>(null)
+  const largeCanvasRef = useRef<HTMLCanvasElement | null>(null)
 
   // Steps data for "How to Use" section
   const howToSteps = [
@@ -52,30 +54,13 @@ export function PixelArtConverter() {
     }
   ]
 
-  const pixelateImage = useCallback((img: HTMLImageElement, settings: PixelArtSettings) => {
-    const canvas = canvasRef.current
-    if (!canvas) return null
-
-    const ctx = canvas.getContext("2d")
-    if (!ctx) return null
-
-    // Calculate new dimensions based on pixel size
-    const scale = settings.pixelSize
-    const newWidth = Math.floor(img.width / scale)
-    const newHeight = Math.floor(img.height / scale)
-
-    // Set canvas size to the pixelated dimensions
-    canvas.width = newWidth
-    canvas.height = newHeight
-
-    // Disable image smoothing for pixelated effect
-    ctx.imageSmoothingEnabled = false
-
-    // Draw the image scaled down to create pixelated effect
-    ctx.drawImage(img, 0, 0, newWidth, newHeight)
-
-    // Return the pixelated image as data URL
-    return canvas.toDataURL()
+  const pixelateImage = useCallback(async (img: HTMLImageElement) => {
+    const result = await renderPixelArt(img)
+    // store canvases for downloads (Step 4 will switch downloads to toBlob)
+    smallCanvasRef.current = result.small
+    largeCanvasRef.current = result.large
+    setSettings({ pixelSize: result.pixelSize })
+    return result.large.toDataURL()
   }, [])
 
   const processImage = useCallback(async () => {
@@ -84,12 +69,12 @@ export function PixelArtConverter() {
     setIsProcessing(true)
 
     // Use setTimeout to allow UI to update
-    setTimeout(() => {
-      const result = pixelateImage(originalImage, settings)
-      setPixelatedImage(result)
+    setTimeout(async () => {
+      const resultUrl = await pixelateImage(originalImage)
+      setPixelatedImage(resultUrl)
       setIsProcessing(false)
     }, 100)
-  }, [originalImage, settings, pixelateImage])
+  }, [originalImage, pixelateImage])
 
   useEffect(() => {
     if (originalImage) {
@@ -208,17 +193,10 @@ export function PixelArtConverter() {
               </Button>
             )}
 
-            {/* Pixel Size Setting */}
-            <div className="space-y-2">
-              <Label>Pixel Size: {settings.pixelSize}px</Label>
-              <Slider
-                value={[settings.pixelSize]}
-                onValueChange={([value]) => setSettings((prev) => ({ ...prev, pixelSize: value }))}
-                min={2}
-                max={32}
-                step={1}
-                className="w-full"
-              />
+            {/* Zero-config: show auto pixel size info only */}
+            <div className="space-y-1 text-sm text-muted-foreground">
+              <Label className="text-xs">Auto pixel size</Label>
+              <div>Calculated: {settings.pixelSize}px</div>
             </div>
           </CardContent>
         </Card>
