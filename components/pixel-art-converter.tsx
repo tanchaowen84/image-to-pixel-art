@@ -12,7 +12,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Badge } from "@/components/ui/badge"
 import { 
   Upload, Download, Sparkles, ChevronRight, Eye, Palette, Monitor, 
-  Shield, Zap, Users, Lightbulb, Gamepad2, Image, FileImage,
+  Shield, Zap, Users, Lightbulb, Gamepad2, Image as ImageIcon, FileImage as FileImageIcon,
   CheckCircle, ArrowRight, Circle, Square, Triangle, Brush, X, Check
 } from "lucide-react"
 import content from "@/content/homepage.en.json"
@@ -50,7 +50,7 @@ export function PixelArtConverter() {
     {
       icon: Download,
       title: "Download your favorite version",
-      description: "Choose the quick small download, or pick the original-size option"
+      description: "Choose Large (Grid‑scaled) or Small (Pixel Grid)"
     }
   ]
 
@@ -99,7 +99,7 @@ export function PixelArtConverter() {
 
     const reader = new FileReader()
     reader.onload = (e) => {
-      const img = new Image()
+      const img = new window.Image()
       img.onload = () => {
         setOriginalImage(img)
       }
@@ -109,7 +109,7 @@ export function PixelArtConverter() {
   }
 
   const handleExampleImage = () => {
-    const img = new Image()
+    const img = new window.Image()
     img.crossOrigin = "anonymous"
     img.onload = () => {
       setOriginalImage(img)
@@ -141,7 +141,7 @@ export function PixelArtConverter() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Upload className="h-5 w-5" />
-              Upload & Settings
+              Upload
             </CardTitle>
           </CardHeader>
           <CardContent className="flex-1 flex flex-col space-y-6">
@@ -358,7 +358,7 @@ export function PixelArtConverter() {
                   <div className="grid md:grid-cols-2 gap-4 mt-6">
                     {[
                       { icon: Gamepad2, title: "Indie developers", desc: "Turn sketches into UI icons and sprites" },
-                      { icon: Image, title: "Social creators", desc: "Make eye-catching avatars and thumbnails" },
+                      { icon: ImageIcon, title: "Social creators", desc: "Make eye-catching avatars and thumbnails" },
                       { icon: Monitor, title: "Teachers", desc: "Demonstrate sampling and resolution visually" },
                       { icon: Brush, title: "Makers and crafters", desc: "Create patterns for cross-stitch and perler beads" }
                     ].map((user, userIndex) => (
