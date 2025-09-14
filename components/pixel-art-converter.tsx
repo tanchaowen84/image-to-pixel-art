@@ -27,7 +27,7 @@ export function PixelArtConverter() {
   const [originalImage, setOriginalImage] = useState<HTMLImageElement | null>(null)
   const [pixelatedImage, setPixelatedImage] = useState<string | null>(null)
   const [settings, setSettings] = useState<PixelArtSettings>({
-    pixelSize: 8,
+    pixelSize: 6,
   })
   const [isProcessing, setIsProcessing] = useState(false)
 
@@ -70,17 +70,23 @@ export function PixelArtConverter() {
   const processImage = useCallback(async () => {
     if (!originalImage) return
     setIsProcessing(true)
-    const resultUrl = await pixelateImage(originalImage)
+    const resultUrl = await pixelateImage(originalImage, settings.pixelSize)
     setPixelatedImage(resultUrl)
     setIsProcessing(false)
-  }, [originalImage, pixelateImage])
+  }, [originalImage, pixelateImage, settings.pixelSize])
 
   useEffect(() => {
-    if (originalImage) {
-      // Only reprocess when the source image changes
-      void processImage()
-    }
-  }, [originalImage, processImage])
+    if (!originalImage) return
+    // Only run when a new image is set; use current slider value
+    ;(async () => {
+      setIsProcessing(true)
+      const url = await pixelateImage(originalImage, settings.pixelSize)
+      setPixelatedImage(url)
+      setIsProcessing(false)
+    })()
+    // Intentionally omit processImage/settings from deps to avoid re-renders while dragging slider
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [originalImage])
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -135,7 +141,7 @@ export function PixelArtConverter() {
         </p>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-6 h-[500px]">
+      <div className="grid lg:grid-cols-2 gap-6">
         {/* Left Panel - Upload Area */}
         <Card className="flex flex-col">
           <CardHeader>
@@ -145,7 +151,7 @@ export function PixelArtConverter() {
             </CardTitle>
           </CardHeader>
           <CardContent className="flex-1 flex flex-col space-y-6">
-            <div className="flex-1 min-h-[300px]">
+            <div className="flex-1 min-h-[300px] max-h-[70vh]">
               {originalImage ? (
                 <div className="h-full bg-muted rounded-lg overflow-hidden">
                   <img
@@ -217,7 +223,7 @@ export function PixelArtConverter() {
             <CardTitle>Pixel Art Result</CardTitle>
           </CardHeader>
           <CardContent className="flex-1 flex flex-col space-y-4">
-            <div className="flex-1 min-h-[300px]">
+            <div className="flex-1 min-h-[300px] max-h-[70vh]">
               {isProcessing ? (
                 <div className="h-full bg-muted rounded-lg flex items-center justify-center">
                   <div className="text-center">
