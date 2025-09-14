@@ -1,6 +1,14 @@
+import type { Metadata } from "next"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Sparkles } from "lucide-react"
+
+export const metadata: Metadata = {
+  title: "Terms of Use - Image to Pixel Art Converter",
+  alternates: {
+    canonical: '/terms',
+  },
+}
 
 export default function TermsOfUse() {
   return (

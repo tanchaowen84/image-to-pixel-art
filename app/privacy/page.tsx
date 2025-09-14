@@ -1,6 +1,14 @@
+import type { Metadata } from "next"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Sparkles, Shield, Eye, Database } from "lucide-react"
+
+export const metadata: Metadata = {
+  title: "Privacy Policy - Image to Pixel Art Converter",
+  alternates: {
+    canonical: '/privacy',
+  },
+}
 
 export default function PrivacyPolicy() {
   return (

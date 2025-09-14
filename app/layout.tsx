@@ -24,6 +24,10 @@ export const metadata: Metadata = {
   title: content.meta.title,
   description: content.meta.description,
   generator: "v0.app",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
+  alternates: {
+    canonical: '/',
+  },
 }
 
 export default function RootLayout({
