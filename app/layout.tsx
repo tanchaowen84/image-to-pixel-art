@@ -53,6 +53,9 @@ export const metadata: Metadata = {
     creator: '@pixelartconverter',
     site: '@pixelartconverter',
   },
+  verification: {
+    google: 'G-8C4191WWWN',
+  },
   other: {
     'twitter:image:alt': 'Image to Pixel Art Converter - Transform photos into retro pixel art',
   },
@@ -65,6 +68,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Google Analytics */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-8C4191WWWN"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-8C4191WWWN');
+            `,
+          }}
+        />
+        
+        {/* Plausible Analytics */}
+        <script
+          defer
+          data-domain="imagetopixelart.co"
+          src="https://myplausible.app/js/script.js"
+        ></script>
+      </head>
       <body className={`font-pixel ${silkscreen.variable} ${vt323.variable} bg-background text-foreground`}>
         <Header />
         <main className="min-h-screen">
