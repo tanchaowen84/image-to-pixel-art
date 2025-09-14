@@ -27,7 +27,7 @@ export function PixelArtConverter() {
   const [originalImage, setOriginalImage] = useState<HTMLImageElement | null>(null)
   const [pixelatedImage, setPixelatedImage] = useState<string | null>(null)
   const [settings, setSettings] = useState<PixelArtSettings>({
-    pixelSize: 6,
+    pixelSize: 3,
   })
   const [isProcessing, setIsProcessing] = useState(false)
 
@@ -120,7 +120,8 @@ export function PixelArtConverter() {
     img.onload = () => {
       setOriginalImage(img)
     }
-    img.src = "/colorful-landscape-with-mountains-and-trees.jpg"
+    // Use the public asset path; absolute filesystem paths are not loadable in the browser
+    img.src = "/display.webp"
   }
 
   const downloadImage = (isLarge = true) => {
