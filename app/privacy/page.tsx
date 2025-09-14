@@ -236,19 +236,19 @@ export default function PrivacyPolicy() {
             <ul className="list-disc list-inside space-y-1 mt-2">
               <li>
                 <strong>Google Analytics:</strong> Collects anonymous usage data. 
-                <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline" title="View Google Privacy Policy">
                   {" "}Privacy Policy
                 </a>
               </li>
               <li>
                 <strong>Plausible Analytics:</strong> Privacy-focused analytics. 
-                <a href="https://plausible.io/privacy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                <a href="https://plausible.io/privacy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline" title="View Plausible Privacy Policy">
                   {" "}Privacy Policy
                 </a>
               </li>
               <li>
                 <strong>Vercel Analytics:</strong> Website performance monitoring. 
-                <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline" title="View Vercel Privacy Policy">
                   {" "}Privacy Policy
                 </a>
               </li>
@@ -315,7 +315,7 @@ export default function PrivacyPolicy() {
             <p>
               We use cookies and similar tracking technologies to enhance your experience on our site. For detailed 
               information about the cookies we use and your choices regarding cookies, please refer to our 
-              <a href="/cookies" className="text-primary hover:underline">Cookie Policy</a>.
+              <a href="/cookies" className="text-primary hover:underline" title="Read our Cookie Policy">Cookie Policy</a>.
             </p>
           </CardContent>
         </Card>

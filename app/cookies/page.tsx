@@ -164,13 +164,13 @@ export default function CookiePolicy() {
             <h3 className="font-semibold">Opt-Out of Analytics</h3>
             <p className="text-sm text-muted-foreground">
               To opt out of Google Analytics tracking across all websites, you can install the 
-              <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+              <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline" title="Download Google Analytics Opt-out Browser Add-on">
                 {" "}Google Analytics Opt-out Browser Add-on
               </a>.
             </p>
             <p className="text-sm text-muted-foreground">
               For Plausible Analytics, you can use their 
-              <a href="https://plausible.io/cookieless-tracking" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+              <a href="https://plausible.io/cookieless-tracking" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline" title="Learn about Plausible cookieless tracking">
                 {" "}cookieless tracking
               </a> option or block their cookies through your browser settings.
             </p>
@@ -192,19 +192,19 @@ export default function CookiePolicy() {
             <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
               <li>
                 <strong>Google Analytics:</strong> 
-                <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline" title="View Google Privacy Policy">
                   {" "}Privacy Policy
                 </a>
               </li>
               <li>
                 <strong>Plausible Analytics:</strong> 
-                <a href="https://plausible.io/privacy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                <a href="https://plausible.io/privacy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline" title="View Plausible Privacy Policy">
                   {" "}Privacy Policy
                 </a>
               </li>
               <li>
                 <strong>Vercel Analytics:</strong> 
-                <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline" title="View Vercel Privacy Policy">
                   {" "}Privacy Policy
                 </a>
               </li>

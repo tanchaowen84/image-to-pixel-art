@@ -25,17 +25,17 @@ export function Footer() {
             <h3 className="font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="#how-to-use" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href="#how-to-use" className="text-muted-foreground hover:text-primary transition-colors" title="Learn how to use the Image to Pixel Art converter">
                   How to Use
                 </Link>
               </li>
               <li>
-                <Link href="#features" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href="#features" className="text-muted-foreground hover:text-primary transition-colors" title="Explore features of our pixel art converter">
                   Features
                 </Link>
               </li>
               <li>
-                <Link href="#faq" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href="#faq" className="text-muted-foreground hover:text-primary transition-colors" title="Frequently asked questions about pixel art conversion">
                   FAQ
                 </Link>
               </li>
@@ -47,17 +47,17 @@ export function Footer() {
             <h3 className="font-semibold mb-4">Legal</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/privacy" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/privacy" className="text-muted-foreground hover:text-primary transition-colors" title="Read our Privacy Policy">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/terms" className="text-muted-foreground hover:text-primary transition-colors" title="Read our Terms of Use">
                   Terms of Use
                 </Link>
               </li>
               <li>
-                <Link href="/cookies" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/cookies" className="text-muted-foreground hover:text-primary transition-colors" title="Read our Cookie Policy">
                   Cookie Policy
                 </Link>
               </li>
