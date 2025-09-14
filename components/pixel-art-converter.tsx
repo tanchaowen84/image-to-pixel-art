@@ -16,7 +16,7 @@ import {
   CheckCircle, ArrowRight, Circle, Square, Triangle, Brush, X, Check
 } from "lucide-react"
 import content from "@/content/homepage.en.json"
-import { renderPixelArt } from "@/lib/pixel-art"
+import { renderPixelArt, downloadCanvas } from "@/lib/pixel-art"
 
 interface PixelArtSettings {
   pixelSize: number
@@ -43,9 +43,9 @@ export function PixelArtConverter() {
       description: "The image to pixel art preview appears immediately"
     },
     {
-      icon: Slider,
-      title: "Drag the slider to set pixel size",
-      description: "Larger pixels push the image to pixel art look toward bold, retro blocks"
+      icon: Sparkles,
+      title: "Automatic pixel art styling",
+      description: "We auto-pick grid size, quantize to 16 colors, and add tasteful dithering"
     },
     {
       icon: Download,
@@ -106,34 +106,10 @@ export function PixelArtConverter() {
     img.src = "/colorful-landscape-with-mountains-and-trees.jpg"
   }
 
-  const downloadImage = (isOriginalSize = false) => {
-    if (!pixelatedImage || !originalImage) return
-
-    const canvas = document.createElement("canvas")
-    const ctx = canvas.getContext("2d")
-    if (!ctx) return
-
-    const img = new Image()
-    img.onload = () => {
-      if (isOriginalSize) {
-        // Scale up to original size with hard pixels
-        canvas.width = originalImage.width
-        canvas.height = originalImage.height
-        ctx.imageSmoothingEnabled = false
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-      } else {
-        // Keep pixelated size
-        canvas.width = img.width
-        canvas.height = img.height
-        ctx.drawImage(img, 0, 0)
-      }
-
-      const link = document.createElement("a")
-      link.download = `pixel-art-${isOriginalSize ? "large" : "small"}.png`
-      link.href = canvas.toDataURL()
-      link.click()
-    }
-    img.src = pixelatedImage
+  const downloadImage = (isLarge = true) => {
+    const canvas = isLarge ? largeCanvasRef.current : smallCanvasRef.current
+    if (!canvas) return
+    downloadCanvas(canvas, `pixel-art-${isLarge ? 'large' : 'small'}.png`)
   }
 
   return (
@@ -238,13 +214,13 @@ export function PixelArtConverter() {
             {/* Download Buttons */}
             {pixelatedImage && (
               <div className="space-y-3">
-                <Button onClick={() => downloadImage(false)} className="w-full">
+                <Button onClick={() => downloadImage(true)} className="w-full">
                   <Download className="h-4 w-4 mr-2" />
-                  Download Small Size
+                  Download Large (Grid‑scaled)
                 </Button>
-                <Button onClick={() => downloadImage(true)} variant="outline" className="w-full">
+                <Button onClick={() => downloadImage(false)} variant="outline" className="w-full">
                   <Download className="h-4 w-4 mr-2" />
-                  Download Original Size
+                  Download Small (Pixel Grid)
                 </Button>
               </div>
             )}
