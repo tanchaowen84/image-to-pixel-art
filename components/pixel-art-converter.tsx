@@ -56,31 +56,29 @@ export function PixelArtConverter() {
 
   const pixelateImage = useCallback(async (img: HTMLImageElement) => {
     const result = await renderPixelArt(img)
-    // store canvases for downloads (Step 4 will switch downloads to toBlob)
+    // store canvases for downloads
     smallCanvasRef.current = result.small
     largeCanvasRef.current = result.large
-    setSettings({ pixelSize: result.pixelSize })
+    setSettings((prev) =>
+      prev.pixelSize === result.pixelSize ? prev : { pixelSize: result.pixelSize },
+    )
     return result.large.toDataURL()
   }, [])
 
   const processImage = useCallback(async () => {
     if (!originalImage) return
-
     setIsProcessing(true)
-
-    // Use setTimeout to allow UI to update
-    setTimeout(async () => {
-      const resultUrl = await pixelateImage(originalImage)
-      setPixelatedImage(resultUrl)
-      setIsProcessing(false)
-    }, 100)
+    const resultUrl = await pixelateImage(originalImage)
+    setPixelatedImage(resultUrl)
+    setIsProcessing(false)
   }, [originalImage, pixelateImage])
 
   useEffect(() => {
     if (originalImage) {
-      processImage()
+      // Only reprocess when the source image changes
+      void processImage()
     }
-  }, [originalImage, settings, processImage])
+  }, [originalImage, processImage])
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
